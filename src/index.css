@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Great+Vibes&family=Dancing+Script:wght@400;600;700&family=Poppins:wght@300;400;500&family=Inter:wght@300;400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================ */
+/* CSS VARIABLES                                                */
+/* ============================================================ */
+:root {
+  /* Backgrounds */
+  --bg-cream: #FAF7F2;
+  --bg-warm-white: #FFF9F5;
+  --bg-deep-dark: #0D0A0B;
+  --bg-midnight: #12080F;
+  --bg-dusk: #1A0E14;
+
+  /* Primary Palette */
+  --blush: #F2C4CE;
+  --rose: #E8A0B0;
+  --dusty-rose: #C98B9A;
+  --mauve: #B07080;
+  --wine: #7A3B4B;
+
+  /* Accent Palette */
+  --lavender: #D4C5E2;
+  --lilac: #C9B8D8;
+  --champagne: #F5E6D3;
+  --gold: #D4AF7A;
+  --warm-cream: #F0E6D3;
+  --cream: #FAF7F2;
+  --warm-white: #FFF9F5;
+  --deep-dark: #0D0A0B;
+  --midnight: #12080F;
+
+  /* Glow Colors */
+  --glow-pink: rgba(242, 196, 206, 0.4);
+  --glow-lavender: rgba(212, 197, 226, 0.3);
+  --glow-gold: rgba(212, 175, 122, 0.3);
+
+  /* Typography */
+  --font-display: 'Cormorant Garamond', serif;
+  --font-heading: 'Playfair Display', serif;
+  --font-script: 'Great Vibes', cursive;
+  --font-handwritten: 'Dancing Script', cursive;
+  --font-body: 'Poppins', sans-serif;
+  --font-detail: 'Inter', sans-serif;
+}
+
+/* ============================================================ */
+/* RESET & BASE                                                  */
+/* ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: auto !important; /* Let Lenis handle scroll */
+}
+
+body {
+  width: 100%;
+  min-height: 100%;
+  background-color: var(--bg-deep-dark);
+  color: var(--bg-warm-white);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  cursor: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Show native cursor on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  body { cursor: auto; }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================ */
+/* LENIS SMOOTH SCROLL                                           */
+/* ============================================================ */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Hide scrollbar */
+::-webkit-scrollbar { display: none; }
+* { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ============================================================ */
+/* TYPOGRAPHY                                                    */
+/* ============================================================ */
+.font-display    { font-family: var(--font-display); }
+.font-heading    { font-family: var(--font-heading); }
+.font-script     { font-family: var(--font-script); }
+.font-handwritten{ font-family: var(--font-handwritten); }
+.font-body       { font-family: var(--font-body); }
+.font-detail     { font-family: var(--font-detail); }
+
+/* ============================================================ */
+/* GRADIENTS & UTILITIES                                         */
+/* ============================================================ */
+.text-gradient {
+  background: linear-gradient(to right, var(--champagne), var(--blush));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ============================================================ */
+/* 3D CARD FLIP                                                  */
+/* ============================================================ */
+.perspective-1000 {
+  perspective: 1000px;
+}
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* ============================================================ */
+/* FILM GRAIN (CSS — no PNG needed)                              */
+/* ============================================================ */
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10%       { transform: translate(-2%, -3%); }
+  20%       { transform: translate(2%, 2%); }
+  30%       { transform: translate(-1%, 1%); }
+  40%       { transform: translate(1%, -2%); }
+  50%       { transform: translate(-2%, 1%); }
+  60%       { transform: translate(2%, -1%); }
+  70%       { transform: translate(-1%, 2%); }
+  80%       { transform: translate(1%, 1%); }
+  90%       { transform: translate(-2%, -1%); }
+}
+
+.grain-overlay::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 9000;
+  animation: grain 0.3s steps(1) infinite;
+  mix-blend-mode: overlay;
+}
+
+/* ============================================================ */
+/* GALLERY INFINITE SCROLL                                       */
+/* ============================================================ */
+@keyframes scroll-left {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes scroll-right {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.gallery-track-left {
+  animation: scroll-left 30s linear infinite;
+  display: flex;
+  width: max-content;
+}
+.gallery-track-right {
+  animation: scroll-right 35s linear infinite;
+  display: flex;
+  width: max-content;
+}
+.gallery-track-left:hover,
+.gallery-track-right:hover {
+  animation-play-state: paused;
+}
+
+/* ============================================================ */
+/* INTERACTIVE CURSOR HELPERS                                    */
+/* ============================================================ */
+button, a, .interactive, [role="button"] {
+  cursor: none;
+}
+@media (hover: none) and (pointer: coarse) {
+  button, a, .interactive, [role="button"] { cursor: auto; }
+}
+
+/* ============================================================ */
+/* STAR TWINKLE                                                  */
+/* ============================================================ */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.4); }
+}
